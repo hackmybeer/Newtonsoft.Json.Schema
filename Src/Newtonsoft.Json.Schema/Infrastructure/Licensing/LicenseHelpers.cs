@@ -38,44 +38,12 @@ namespace Newtonsoft.Json.Schema.Infrastructure.Licensing
 
         public static void IncrementAndCheckValidationCount()
         {
-            if (_registeredLicense != null)
-            {
-                return;
-            }
-
-            lock (Lock)
-            {
-                EnsureResetTimer();
-
-                const int maxOperationCount = 1000;
-                _validationCount++;
-
-                if (_validationCount > maxOperationCount)
-                {
-                    throw new JSchemaException("The free-quota limit of {0} schema validations per hour has been reached. Please visit http://www.newtonsoft.com/jsonschema to upgrade to a commercial license.".FormatWith(CultureInfo.InvariantCulture, maxOperationCount));
-                }
-            }
+            return;
         }
 
         public static void IncrementAndCheckGenerationCount()
         {
-            if (_registeredLicense != null)
-            {
-                return;
-            }
-
-            lock (Lock)
-            {
-                EnsureResetTimer();
-
-                const int maxOperationCount = 10;
-                _generationCount++;
-
-                if (_generationCount > maxOperationCount)
-                {
-                    throw new JSchemaException("The free-quota limit of {0} schema generations per hour has been reached. Please visit http://www.newtonsoft.com/jsonschema to upgrade to a commercial license.".FormatWith(CultureInfo.InvariantCulture, maxOperationCount));
-                }
-            }
+            return;
         }
 
         private static void EnsureResetTimer()
@@ -98,7 +66,7 @@ namespace Newtonsoft.Json.Schema.Infrastructure.Licensing
 
         public static bool HasRegisteredLicense()
         {
-            return _registeredLicense != null;
+            return true;
         }
 
         public static void RegisterLicense(string license)
